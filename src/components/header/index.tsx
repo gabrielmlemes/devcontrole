@@ -7,8 +7,6 @@ import { signIn, signOut, useSession } from "next-auth/react";
 const Header = () => {
   const { data, status } = useSession();
 
-  console.log(status);
-
   async function handleSignIn() {
     await signIn();
   }

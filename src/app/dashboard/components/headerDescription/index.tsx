@@ -1,0 +1,23 @@
+import Link from "next/link";
+import { ReactNode } from "react";
+
+interface HeaderDescriptionProps{
+    name: string
+    nameButton: string
+}
+
+const HeaderDescription = ({name, nameButton}: HeaderDescriptionProps) => {
+    return ( 
+        <div className="flex justify-between items-center w-full mt-9 mb-6">
+        <h2 className="font-bold text-3xl">{name}</h2>
+        <Link
+          href="/dashboard/new"
+          className="bg-[#3B82F6] font-semibold px-5 py-1 hover:scale-105 duration-300 text-white rounded-md "
+        >
+          {nameButton}
+        </Link>
+      </div>
+     );
+}
+ 
+export default HeaderDescription;

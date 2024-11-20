@@ -3,6 +3,7 @@ import { getServerSession } from "next-auth";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import TicketItem from "./components/ticket";
+import HeaderDescription from "./components/headerDescription";
 
 const Dashboard = async () => {
   const session = await getServerSession(authOptions);
@@ -13,15 +14,7 @@ const Dashboard = async () => {
 
   return (
     <main>
-      <div className="flex justify-between items-center w-full mt-9 mb-6">
-        <h2 className="font-bold text-3xl">Chamados</h2>
-        <Link
-          href="/dashboard/new"
-          className="bg-[#3B82F6] font-semibold px-5 py-1 hover:scale-105 duration-300 text-white rounded-md "
-        >
-          Abrir chamado
-        </Link>
-      </div>
+      <HeaderDescription name='Chamados' nameButton='Cadastrar'/>
 
       <table className="w-full">
         <thead>

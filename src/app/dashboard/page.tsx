@@ -14,7 +14,7 @@ const Dashboard = async () => {
 
   return (
     <main>
-      <HeaderDescription name='Chamados' nameButton='Cadastrar'/>
+      <HeaderDescription name='Chamados' nameButton='Cadastrar' href="/dashboard/new"/>
 
       <table className="w-full">
         <thead>

@@ -20,7 +20,7 @@ const New = async () => {
       />
 
       <main>
-         <NewCustomerForm/>
+         <NewCustomerForm userId = {session.user.id}/>
       </main>
     </>
   );

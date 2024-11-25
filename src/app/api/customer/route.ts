@@ -9,7 +9,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Not authorized" }, { status: 401 });
   }
 
-  const { name, email, phone, adress, userId } = await req.json();
+  const { name, email, phone, address, userId } = await req.json();
 
   try {
     await prisma.customer.create({
@@ -17,7 +17,7 @@ export async function POST(req: Request) {
         name: name,
         email: email,
         phone: phone,
-        address: adress ? adress : "",
+        address: address ? address : "",
         userId: userId,
       },
     });

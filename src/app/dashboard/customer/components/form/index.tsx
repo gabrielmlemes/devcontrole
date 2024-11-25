@@ -4,6 +4,8 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Input from "@/components/input";
+import { api } from "@/lib/api";
+import { useRouter } from "next/navigation";
 
 const schema = z.object({
   name: z.string().min(1, "O nome é obrigatório"),
@@ -20,17 +22,15 @@ const schema = z.object({
       message: "O telefone não segue o padrão. Ex: 61912345678",
     }
   ),
-  adress: z.string(), // não é obrigatório (não tem o .min)
+  address: z.string().optional(), // não é obrigatório (não tem o .min)
 });
 
 type FormData = z.infer<typeof schema>;
 
-function handleRegister(data: FormData) {
-  console.log(data);
-  
-}
 
-const NewCustomerForm = () => {
+const NewCustomerForm = ({ userId }: { userId: String }) => {
+  const router = useRouter()
+
   const {
     register,
     handleSubmit,
@@ -39,8 +39,23 @@ const NewCustomerForm = () => {
     resolver: zodResolver(schema),
   });
 
+  async function handleRegisterCustomer(data: FormData) {
+    await api.post("/api/customer", {
+      name: data.name,
+      email: data.email,
+      phone: data.phone,
+      userId: userId,
+      address: data.address,
+    });
+
+    router.replace('/dashboard/customer')
+  }
+
   return (
-    <form className="flex flex-col px-2" onSubmit={handleSubmit(handleRegister)}>
+    <form
+      className="flex flex-col px-2"
+      onSubmit={handleSubmit(handleRegisterCustomer)}
+    >
       <label className="mb-1 text-lg font-medium">Nome completo</label>
       <Input
         name="name"
@@ -79,7 +94,7 @@ const NewCustomerForm = () => {
         name="adress"
         placeholder="Digite seu endereço"
         type="text"
-        error={errors.adress?.message}
+        error={errors.address?.message}
         register={register}
       />
 

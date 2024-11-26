@@ -48,6 +48,7 @@ const NewCustomerForm = ({ userId }: { userId: String }) => {
       address: data.address,
     });
 
+    router.refresh() // Evita o cache do Next
     router.replace('/dashboard/customer')
   }
 

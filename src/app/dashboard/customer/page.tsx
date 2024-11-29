@@ -1,7 +1,7 @@
 import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
-import ClientTicket from "./components";
+import ClientTicket from "./components/card";
 import HeaderDescription from "../components/headerDescription";
 import prisma from "@/lib/prisma";
 
@@ -28,13 +28,12 @@ const Customer = async () => {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 lg:grid-cols-3">
         {customers.map((customer) => (
-          <ClientTicket
-            key={customer.id}
-            name={customer.name}
-            email={customer.email}
-            phone={customer.phone}
-          />
+          <ClientTicket key={customer.id} customer={customer} />
         ))}
+
+        {customers.length === 0 && (
+          <span className="font-semibold text-gray-600">Você não possui nenhum cliente</span>
+        )}
       </div>
     </main>
   );

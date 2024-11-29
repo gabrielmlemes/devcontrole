@@ -26,9 +26,11 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ message: "CLIENTE CADASTRADO" });
   } catch (error) {
+    console.log(error);
+
     return NextResponse.json(
       { error: "Failed to created new customer" },
-      { status: 400 }
+      { status: 400 },
     );
   }
 }
@@ -45,7 +47,7 @@ export async function DELETE(req: Request) {
   if (!userId) {
     return NextResponse.json(
       { error: "Failed to delete customer" },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
@@ -58,7 +60,7 @@ export async function DELETE(req: Request) {
   if (findTickets) {
     return NextResponse.json(
       { error: "Failed delete customer" },
-      { status: 401 }
+      { status: 401 },
     );
   }
 
@@ -74,7 +76,7 @@ export async function DELETE(req: Request) {
     console.log(error);
     return NextResponse.json(
       { error: "Failed to delete customer" },
-      { status: 400 }
+      { status: 400 },
     );
   }
 }

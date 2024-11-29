@@ -33,7 +33,7 @@ const Header = () => {
         {status === "authenticated" && (
           <div className="flex gap-3 items-baseline">
             <Link href="/dashboard">
-              <FiUser size={26} color="#2563EB" />
+              <FiUser size={26}  />
             </Link>
 
             <button onClick={handleSignOut}>

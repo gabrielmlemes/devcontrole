@@ -16,10 +16,10 @@ const Header = () => {
   }
 
   return (
-    <header className="w-full flex items-center px-2 py-4 bg-white h-20 shadow-sm">
-      <div className="flex items-center justify-between w-full max-w-7xl mx-auto">
+    <header className="flex h-20 w-full items-center bg-white px-2 py-4 shadow-sm">
+      <div className="mx-auto flex w-full max-w-7xl items-center justify-between">
         <Link href="/">
-          <h1 className="font-bold text-2xl pl-1 hover:scale-105 duration-300">
+          <h1 className="pl-1 text-2xl font-bold duration-300 hover:scale-105">
             <span className="text-blue-500">DEV</span> CONTROLE
           </h1>
         </Link>
@@ -31,9 +31,13 @@ const Header = () => {
         )}
 
         {status === "authenticated" && (
-          <div className="flex gap-3 items-baseline">
+          <div className="flex items-baseline gap-3">
+            <div>
+              Bem vindo(a) <b>{data.user.name}</b>
+            </div>
+
             <Link href="/dashboard">
-              <FiUser size={26}  />
+              <FiUser size={26} />
             </Link>
 
             <button onClick={handleSignOut}>
@@ -43,9 +47,13 @@ const Header = () => {
         )}
 
         {status == "unauthenticated" && (
-          <button onClick={handleSignIn}>
-            <FiLock size={26} color="#4b5563" />
-          </button>
+          <div className="flex items-center gap-2">
+            <p>Fazer login</p>
+
+            <button onClick={handleSignIn}>
+              <FiLock size={26} color="#4b5563" />
+            </button>
+          </div>
         )}
       </div>
     </header>

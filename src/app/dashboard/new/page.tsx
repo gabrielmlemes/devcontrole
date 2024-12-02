@@ -16,7 +16,31 @@ const NewTicket = async () => {
       userId: session.user.id,
     },
   });
-  console.log(customers);
+
+  async function handleRegisterTicket(formData: FormData) {
+    "use server";
+
+    const name = formData.get("name");
+    const description = formData.get("description");
+    const customer = formData.get("customer");
+
+    if (!name || !description || !customer) {
+      return;
+    }
+
+    await prisma.ticket.create({
+      data: {
+        name: name as string,
+        description: description as string,
+        customerId: customer as string,
+        status: "ABERTO",
+        userId: session?.user.id,
+      },
+    });
+    console.log("Chamado aberto");
+
+    redirect("/dashboard");
+  }
 
   return (
     <>
@@ -26,13 +50,14 @@ const NewTicket = async () => {
         nameButton="Voltar"
       />
 
-      <form className="flex flex-col">
+      <form className="flex flex-col" action={handleRegisterTicket}>
         <label className="text-xl font-bold">Chamado</label>
         <input
           type="text"
           placeholder="Digite o nome do chamado"
           required
           className="mb-6 mt-1 h-11 w-full rounded-md border-2 px-2"
+          name="name"
         />
 
         <label className="text-xl font-bold">Problema</label>
@@ -40,12 +65,16 @@ const NewTicket = async () => {
           placeholder="Digite o seu problema..."
           required
           className="mb-6 mt-1 h-24 w-full resize-none rounded-md border-2 p-2"
+          name="description"
         ></textarea>
 
         {customers.length !== 0 && (
           <>
             <label className="text-xl font-bold">Selecione o cliente</label>
-            <select className="mt-1 h-11 w-full resize-none rounded-md border-2 bg-white p-2">
+            <select
+              name="customer"
+              className="mt-1 h-11 w-full resize-none rounded-md border-2 bg-white p-2"
+            >
               {customers.map((customer) => (
                 <option key={customer.id} value={customer.id}>
                   {customer.name}
@@ -63,6 +92,14 @@ const NewTicket = async () => {
             Cadastrar cliente
           </Link>
         )}
+
+        <button
+          type="submit"
+          disabled={customers.length === 0 ? true : false}
+          className="my-4 h-11 rounded bg-[#3B82F6] px-2 font-bold text-white disabled:cursor-not-allowed disabled:bg-gray-400"
+        >
+          Cadastrar chamado
+        </button>
       </form>
     </>
   );

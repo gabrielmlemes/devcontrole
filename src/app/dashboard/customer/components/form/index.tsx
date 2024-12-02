@@ -20,16 +20,15 @@ const schema = z.object({
     },
     {
       message: "O telefone não segue o padrão. Ex: 61912345678",
-    }
+    },
   ),
   address: z.string().optional(), // não é obrigatório (não tem o .min)
 });
 
 type FormData = z.infer<typeof schema>;
 
-
-const NewCustomerForm = ({ userId }: { userId: String }) => {
-  const router = useRouter()
+const NewCustomerForm = ({ userId }: { userId: string }) => {
+  const router = useRouter();
 
   const {
     register,
@@ -48,8 +47,8 @@ const NewCustomerForm = ({ userId }: { userId: String }) => {
       address: data.address,
     });
 
-    router.refresh() // Evita o cache do Next
-    router.replace('/dashboard/customer')
+    router.refresh(); // Evita o cache do Next
+    router.replace("/dashboard/customer");
   }
 
   return (
@@ -66,8 +65,8 @@ const NewCustomerForm = ({ userId }: { userId: String }) => {
         register={register}
       />
 
-      <section className="sm:flex gap-2 my-3">
-        <div className="flex-1 mb-2">
+      <section className="my-3 gap-2 sm:flex">
+        <div className="mb-2 flex-1">
           <label className="mb-1 text-lg font-medium">Telefone</label>
           <Input
             name="phone"
@@ -101,7 +100,7 @@ const NewCustomerForm = ({ userId }: { userId: String }) => {
 
       <button
         type="submit"
-        className="bg-[#3B82F6] my-4 px-2 h-11 rounded text-white font-bold"
+        className="my-4 h-11 rounded bg-[#3B82F6] px-2 font-bold text-white"
       >
         Cadastrar
       </button>

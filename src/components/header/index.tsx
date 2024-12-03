@@ -32,8 +32,8 @@ const Header = () => {
 
         {status === "authenticated" && (
           <div className="flex items-baseline gap-3">
-            <div className="hidden md:flex">
-              Bem vindo(a) <b>{data.user.name}</b>
+            <div className="hidden md:flex md:space-x-1">
+              <p>Bem vindo(a) </p> <strong> {data.user.name}</strong>
             </div>
 
             <Link href="/dashboard">

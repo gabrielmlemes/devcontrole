@@ -22,17 +22,19 @@ const Customer = async () => {
     <main>
       <HeaderDescription
         name="Meus clientes"
-        nameButton="Novo cliente"
+        nameButton="Novo"
         href="/dashboard/customer/new"
       />
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {customers.map((customer) => (
           <ClientTicket key={customer.id} customer={customer} />
         ))}
 
         {customers.length === 0 && (
-          <span className="font-semibold text-gray-600">Você não possui nenhum cliente</span>
+          <span className="font-semibold text-gray-600">
+            Você não possui nenhum cliente
+          </span>
         )}
       </div>
     </main>

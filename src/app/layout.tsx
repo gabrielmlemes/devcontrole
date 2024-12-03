@@ -1,15 +1,14 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import "./globals.css";
 import Header from "../components/header/index";
 import { AuthProvider } from "@/providers/auth";
 
-import { Sora } from 'next/font/google';
+import { Sora } from "next/font/google";
 
 const sora = Sora({
-  subsets: ['latin'], // Inclui caracteres latinos
-  weight: ['400', '600', '700'], // Escolha os pesos necessários
-  variable: '--font-sora', // Define uma variável CSS opcional
+  subsets: ["latin"], // Inclui caracteres latinos
+  weight: ["400", "600", "700"], // Escolha os pesos necessários
+  variable: "--font-sora", // Define uma variável CSS opcional
 });
 
 export const metadata: Metadata = {
@@ -23,13 +22,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={sora.className}
-      >
+    <html lang="en" className="h-full">
+      <body className={`flex min-h-screen flex-col ${sora.className}`}>
         <AuthProvider>
           <Header />
-          {children}
+          <main className="flex-grow">{children}</main>
+          <footer className="border-t bg-slate-50 py-4 text-center text-sm font-semibold text-gray-600">
+            Desenvolvido por Gabriel Lemes
+          </footer>
         </AuthProvider>
       </body>
     </html>

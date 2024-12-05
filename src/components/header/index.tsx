@@ -31,9 +31,10 @@ const Header = () => {
         )}
 
         {status === "authenticated" && (
-          <div className="flex items-baseline gap-3">
+          <div className="flex items-center gap-3">
             <div className="hidden md:flex md:space-x-1">
-              <p>Bem vindo(a) </p> <strong> {data.user.name}</strong>
+              <p className="text-lg">Bem vindo(a) </p>{" "}
+              <strong className="text-lg"> {data.user.name}</strong>
             </div>
 
             <Link href="/dashboard">

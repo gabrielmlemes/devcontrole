@@ -9,6 +9,8 @@ import { useRouter } from "next/navigation";
 import { useContext } from "react";
 import { ModalContext } from "@/providers/modal";
 
+import toast from "react-hot-toast";
+
 interface TicketItemProps {
   ticket: TicketProps;
   customer: CustomerProps | null;
@@ -23,8 +25,13 @@ const TicketItem = ({ ticket, customer }: TicketItemProps) => {
       await api.patch("/api/ticket", {
         id: ticket.id,
       });
+      toast.success("Chamado fechado", {
+        duration: 3000, // Duração do toast em ms
+        position: "top-right", // Posição na tela
+      });
       router.refresh();
     } catch (error) {
+      toast.error("Erro ao atualizar o ticket.");
       console.log(error);
     }
   }

@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Input from "@/components/input";
 import { api } from "@/lib/api";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 const schema = z.object({
   name: z.string().min(1, "O nome é obrigatório"),
@@ -49,6 +50,10 @@ const NewCustomerForm = ({ userId }: { userId: string }) => {
 
     router.refresh(); // Evita o cache do Next
     router.replace("/dashboard/customer");
+    toast.success("Cliente cadastrado!", {
+      duration: 3000, // Duração do toast em ms
+      position: "top-center", // Posição na tela
+    });
   }
 
   return (

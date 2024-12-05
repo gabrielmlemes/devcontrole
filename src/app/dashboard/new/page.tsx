@@ -37,7 +37,6 @@ const NewTicket = async () => {
         userId: session?.user.id,
       },
     });
-    console.log("Chamado aberto");
 
     redirect("/dashboard");
   }

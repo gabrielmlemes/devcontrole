@@ -5,6 +5,7 @@ import { AuthProvider } from "@/providers/auth";
 
 import { Sora } from "next/font/google";
 import { ModalProvider } from "@/providers/modal";
+import { Toaster } from "react-hot-toast";
 
 const sora = Sora({
   subsets: ["latin"], // Inclui caracteres latinos
@@ -27,6 +28,7 @@ export default function RootLayout({
       <body className={`flex min-h-screen flex-col ${sora.className}`}>
         <AuthProvider>
           <ModalProvider>
+            <Toaster />
             <Header />
             <main className="flex-grow">{children}</main>
             <footer className="border-t bg-slate-50 py-4 text-center text-sm font-semibold text-gray-600">

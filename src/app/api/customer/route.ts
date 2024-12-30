@@ -5,6 +5,7 @@ import prisma from "@/lib/prisma";
 
 // Rotas: http://localhost:3000/api/customer
 
+// Rota para criar o cliente
 export async function POST(req: Request) {
   const session = await getServerSession(authOptions);
   if (!session || !session.user) {
@@ -35,6 +36,7 @@ export async function POST(req: Request) {
   }
 }
 
+// Rota para deletar o cliente
 export async function DELETE(req: Request) {
   const session = await getServerSession(authOptions);
   if (!session || !session?.user) {
@@ -79,4 +81,35 @@ export async function DELETE(req: Request) {
       { status: 400 },
     );
   }
+}
+
+// Rota para buscar o email
+export async function GET(req: Request) {
+  const { searchParams } = new URL(req.url);
+  const customerEmail = searchParams.get("email");
+
+  if (!customerEmail || customerEmail === "") {
+    return NextResponse.json(
+      { error: "Failed to get customer" },
+      { status: 400 },
+    );
+  }
+
+  try {
+    const findCustomer = await prisma.customer.findFirst({
+      where: {
+        email: customerEmail,
+      },
+    });
+
+    return NextResponse.json(findCustomer);
+  } catch (error) {
+    console.log(error);
+    return NextResponse.json(
+      { error: "Failed to get customer" },
+      { status: 400 },
+    );
+  }
+
+  return NextResponse.json({ message: "RECEBIDO" });
 }

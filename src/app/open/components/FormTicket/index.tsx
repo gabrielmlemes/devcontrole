@@ -24,6 +24,7 @@ const FormTicket = () => {
 
   return (
     <form className="mt-6 flex flex-col gap-2 rounded bg-slate-200 p-4">
+      <label>Nome do chamado</label>
       <Input
         name="name"
         placeholder="Digite o nome do chamado..."
@@ -31,6 +32,7 @@ const FormTicket = () => {
         register={register}
         error={errors.name?.message}
       />
+      <label className="mt-4">Descreva o problema</label>
       <textarea
         placeholder="Descreva o seu problema..."
         className="h-24 w-full resize-none rounded border-2 p-2"
@@ -41,7 +43,10 @@ const FormTicket = () => {
         <p className="my-1 text-red-500">errors.description?.message</p>
       )}
 
-      <button className="w-full rounded bg-blue-500 p-2 font-bold text-white">
+      <button
+        type="submit"
+        className="w-full rounded bg-blue-500 p-2 font-bold text-white"
+      >
         Cadastrar
       </button>
     </form>

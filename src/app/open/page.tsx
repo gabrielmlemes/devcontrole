@@ -7,6 +7,7 @@ import Input from "@/components/input";
 import { FiSearch, FiX } from "react-icons/fi";
 import { useState } from "react";
 import FormTicket from "./components/FormTicket";
+import { api } from "@/lib/api";
 
 const schema = z.object({
   email: z
@@ -23,12 +24,13 @@ interface CustomerDataInfo {
 }
 
 const OpenTicket = () => {
-  const [customer, setCustomer] = useState<CustomerDataInfo | null>();
+  const [customer, setCustomer] = useState<CustomerDataInfo | null>(null);
 
   const {
     register,
-    // handleSubmit,
+    handleSubmit,
     setValue,
+    setError,
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
@@ -37,6 +39,24 @@ const OpenTicket = () => {
   function handleClearCustomer() {
     setCustomer(null);
     setValue("email", "");
+  }
+
+  async function handleSearchCustomer(data: FormData) {
+    const response = await api.get("/api/customer", {
+      params: {
+        email: data.email,
+      },
+    });
+
+    if (response.data === null) {
+      setError("email", { type: "custom", message: "Cliente não encontrado" });
+      return;
+    }
+
+    setCustomer({
+      id: response.data.id,
+      name: response.data.name,
+    });
   }
 
   return (
@@ -58,7 +78,10 @@ const OpenTicket = () => {
             </button>
           </div>
         ) : (
-          <form className="rounded border-2 bg-slate-200 p-6">
+          <form
+            className="rounded border-2 bg-slate-200 p-6"
+            onSubmit={handleSubmit(handleSearchCustomer)}
+          >
             <div className="w-full">
               <Input
                 name="email"
@@ -68,7 +91,10 @@ const OpenTicket = () => {
                 error={errors.email?.message}
               />
 
-              <button className="mt-2 flex w-full items-center justify-center gap-2 rounded bg-blue-500 p-2 font-bold text-white duration-200 hover:scale-x-105">
+              <button
+                type="submit"
+                className="mt-2 flex w-full items-center justify-center gap-2 rounded bg-blue-500 p-2 font-bold text-white duration-200 hover:scale-x-105"
+              >
                 Procurar clientes
                 <FiSearch size={24} color="#FFF" />
               </button>

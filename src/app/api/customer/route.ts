@@ -40,7 +40,10 @@ export async function POST(req: Request) {
 export async function DELETE(req: Request) {
   const session = await getServerSession(authOptions);
   if (!session || !session?.user) {
-    return NextResponse.json({ error: "Not authorized" }, { status: 401 });
+    return NextResponse.json(
+      { error: "Not authorized - You're don't logged in" },
+      { status: 401 },
+    );
   }
 
   const { searchParams } = new URL(req.url);
@@ -110,6 +113,4 @@ export async function GET(req: Request) {
       { status: 400 },
     );
   }
-
-  return NextResponse.json({ message: "RECEBIDO" });
 }

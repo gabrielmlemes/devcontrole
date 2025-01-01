@@ -49,3 +49,37 @@ export async function PATCH(req: Request) {
     );
   }
 }
+
+export async function POST(req: Request) {
+  const { name, description, customerId } = await req.json();
+
+  if (!name || !description || !customerId) {
+    return NextResponse.json(
+      { message: "Erro ao cadastrar chamado" },
+      { status: 400 },
+    );
+  }
+
+  try {
+    await prisma.ticket.create({
+      data: {
+        name,
+        description,
+        status: "ABERTO",
+        customerId,
+      },
+    });
+
+    return NextResponse.json(
+      { message: "Chamado cadastrado com sucesso" },
+      { status: 200 },
+    );
+  } catch (error) {
+    console.log(error);
+
+    return NextResponse.json(
+      { message: "Erro ao cadastrar chamado" },
+      { status: 400 },
+    );
+  }
+}

@@ -48,11 +48,13 @@ const Header = () => {
         )}
 
         {status == "unauthenticated" && (
-          <div className="flex items-center gap-2">
-            <p>Fazer login</p>
-
-            <button onClick={handleSignIn}>
-              <FiLock size={26} color="#4b5563" />
+          <div className="rounded-lg bg-[#064790] px-4 py-1 text-white duration-300 hover:scale-105">
+            <button
+              onClick={handleSignIn}
+              className="flex items-center justify-center gap-2"
+            >
+              <p className="font-semibold">Entrar</p>
+              <FiLock size={26} color="#fff" />
             </button>
           </div>
         )}

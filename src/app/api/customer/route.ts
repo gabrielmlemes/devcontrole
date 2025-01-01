@@ -38,6 +38,7 @@ export async function POST(req: Request) {
 
 // Rota para deletar o cliente
 export async function DELETE(req: Request) {
+  // verifica se há sessão
   const session = await getServerSession(authOptions);
   if (!session || !session?.user) {
     return NextResponse.json(
@@ -46,23 +47,26 @@ export async function DELETE(req: Request) {
     );
   }
 
+  // busca o id enviado pela URL e salva em userId
   const { searchParams } = new URL(req.url);
-  const userId = searchParams.get("id");
+  const customerIdParams = searchParams.get("id");
 
-  if (!userId) {
+  // verifica se há o id do cliente enviado
+  if (!customerIdParams) {
     return NextResponse.json(
-      { error: "Failed to delete customer" },
+      { error: "Failed to delete customer - id not sent" },
       { status: 400 },
     );
   }
 
-  const findTickets = await prisma.ticket.findFirst({
+  // busca no banco o id do cliente que condiz com o id enviado
+  const findCustomer = await prisma.customer.findFirst({
     where: {
-      customerId: userId,
+      id: customerIdParams,
     },
   });
 
-  if (findTickets) {
+  if (!findCustomer) {
     return NextResponse.json(
       { error: "Failed delete customer" },
       { status: 401 },
@@ -72,7 +76,7 @@ export async function DELETE(req: Request) {
   try {
     await prisma.customer.delete({
       where: {
-        id: userId as string,
+        id: findCustomer.id,
       },
     });
 

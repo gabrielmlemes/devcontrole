@@ -50,15 +50,15 @@ const FormTicket = ({ customer }: FormTicketProps) => {
       className="mt-6 flex flex-col gap-2 rounded bg-slate-200 p-4"
       onSubmit={handleSubmit(handleRegisterTicket)}
     >
-      <label>Nome do chamado</label>
+      <label>Assunto do chamado</label>
       <Input
         name="name"
-        placeholder="Digite o nome do chamado..."
+        placeholder="Digite o assunto do chamado..."
         type="text"
         register={register}
         error={errors.name?.message}
       />
-      <label className="mt-4">Descreva o problema</label>
+      <label className="mt-4">Problema</label>
       <textarea
         placeholder="Descreva o seu problema..."
         className="h-24 w-full resize-none rounded border-2 p-2"

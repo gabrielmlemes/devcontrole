@@ -38,7 +38,7 @@ const Header = () => {
             </div>
 
             <Link href="/dashboard">
-              <FiUser size={26} />
+              <FiUser size={26} color="#064790" />
             </Link>
 
             <button onClick={handleSignOut}>

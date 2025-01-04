@@ -32,7 +32,14 @@ export default function RootLayout({
             <Header />
             <main className="flex-grow">{children}</main>
             <footer className="border-t bg-slate-50 py-4 text-center text-sm font-semibold text-gray-600">
-              Desenvolvido por Gabriel Lemes
+              Desenvolvido por{" "}
+              <a
+                href="https://www.linkedin.com/in/gabriel-l-775abb103/"
+                className="font-bold"
+                target="_blank"
+              >
+                Gabriel Lemes
+              </a>
             </footer>
           </ModalProvider>
         </AuthProvider>
